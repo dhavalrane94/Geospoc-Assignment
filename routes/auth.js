@@ -63,9 +63,6 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
                     msg: err
                   });
                 }
-                // return res.status(201).send({
-                //   msg: 'Registered!'
-                // });
                 res.render('registered', {
                   title: 'Welcome You Are Registered Successfully...!'
                 })
@@ -79,7 +76,6 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
 });
 
 router.post('/authenticationLogin', (req, res, next) => {
-  console.log("auth====", req.body)
   db.query(
     `SELECT * FROM users WHERE email = ${db.escape(req.body.email)};`,
     (err, result) => {
@@ -117,19 +113,6 @@ router.post('/authenticationLogin', (req, res, next) => {
                 expiresIn: '7d'
               }
             );
-            // db.query(
-            //   `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`
-            // );
-            // res.status(200).send({
-            //   msg: 'Logged in!',
-            //   token,
-            //   user: result[0]
-            // });
-            // return res.render('home', {
-            //   title: 'Home',
-            //   name: result[0]['name'],
-            //   courrency_result: ""
-            // })
             res.cookie("userHeader",token,{
               expires:new Date(Date.now() + 86400),
               httpOnly: true

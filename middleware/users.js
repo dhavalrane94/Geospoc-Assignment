@@ -27,7 +27,6 @@ module.exports = {
   },
 
   isLoggedIn: (req, res, next) => {
-    console.log("headers======",req.cookies.userHeader)
     try {
       const token = req.cookies.userHeader;
       const decoded = jwt.verify(
